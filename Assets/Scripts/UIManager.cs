@@ -6,54 +6,53 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [Header("UI Elements")]
-    public GameObject proposalPanel;
-    public GameObject successPanel;
-    public Button yesButton;
-    public Button noButton;
-    public Vector3 originalNoButtonScale;
+    [Header("UI Panels")]
+    public GameObject proposalPanel;    // Drag ProposalPanel here
+    public GameObject successPanel;     // Drag SuccessPanel here
+
+    [Header("Buttons")]
+    public Button yesButton;           // Drag Yes button here
+    public Button noButton;            // Drag No button here
+
+    private Vector3 originalNoButtonScale;
+    private Vector3 originalYesButtonScale;
 
     void Start()
     {
+        // Store original button scales
+        originalNoButtonScale = noButton.transform.localScale;
+        originalYesButtonScale = yesButton.transform.localScale;
+
         // Hide panels at start
-        if (proposalPanel) proposalPanel.SetActive(false);
-        if (successPanel) successPanel.SetActive(false);
+        proposalPanel.SetActive(false);
+        successPanel.SetActive(false);
 
-        // Store original scale of No button
-        if (noButton) originalNoButtonScale = noButton.transform.localScale;
-
-        // Setup button listeners
-        if (yesButton) yesButton.onClick.AddListener(OnYesClicked);
-        if (noButton) noButton.onClick.AddListener(OnNoClicked);
+        // Add button listeners
+        yesButton.onClick.AddListener(OnYesClicked);
+        noButton.onClick.AddListener(OnNoClicked);
     }
 
     public void ShowProposal()
     {
-        if (proposalPanel)
-        {
-            proposalPanel.SetActive(true);
-            // Reset no button scale
-            if (noButton) noButton.transform.localScale = originalNoButtonScale;
-        }
+        // Reset button scales
+        noButton.transform.localScale = originalNoButtonScale;
+        yesButton.transform.localScale = originalYesButtonScale;
+
+        // Show proposal panel
+        proposalPanel.SetActive(true);
     }
 
     public void OnNoClicked()
     {
-        if (noButton && yesButton)
-        {
-            // Shrink No button
-            noButton.transform.localScale *= 0.9f;
-            // Grow Yes button
-            yesButton.transform.localScale *= 1.1f;
-        }
+        // Shrink No button and grow Yes button
+        noButton.transform.localScale *= 0.9f;
+        yesButton.transform.localScale *= 1.1f;
     }
 
     public void OnYesClicked()
     {
-        if (proposalPanel && successPanel)
-        {
-            proposalPanel.SetActive(false);
-            successPanel.SetActive(true);
-        }
+        // Hide proposal and show success
+        proposalPanel.SetActive(false);
+        successPanel.SetActive(true);
     }
 }
