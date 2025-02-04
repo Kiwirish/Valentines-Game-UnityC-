@@ -3,45 +3,61 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class EndSceneManager : MonoBehaviour
 {
     [Header("Main UI Elements")]
-    public TextMeshProUGUI valentineText;     // "Will you be my Valentine?"
+    public TextMeshProUGUI valentineText;
     public Button yesButton;
     public Button noButton;
 
     [Header("Success Modal")]
-    public GameObject successModal;            // Panel containing the success message
-    public TextMeshProUGUI successText;       // "Yay! "
+    public GameObject successModal;
+    public TextMeshProUGUI successText;
 
     private Vector3 originalNoButtonScale;
     private Vector3 originalYesButtonScale;
+    private float returnToTitleDelay = 10f;
+    private bool isReturningToTitle = false;
 
     void Start()
     {
-        // Store original button scales
         originalNoButtonScale = noButton.transform.localScale;
         originalYesButtonScale = yesButton.transform.localScale;
 
-        // Hide success modal at start
         successModal.SetActive(false);
 
-        // Set up button listeners
         yesButton.onClick.AddListener(OnYesClicked);
         noButton.onClick.AddListener(OnNoClicked);
     }
 
+    void Update()
+    {
+        if (isReturningToTitle)
+        {
+            returnToTitleDelay -= Time.deltaTime;
+            if (returnToTitleDelay <= 0)
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScene");
+            }
+        }
+    }
+
     public void OnNoClicked()
     {
-        // Shrink No button and grow Yes button
         noButton.transform.localScale *= 0.9f;
         yesButton.transform.localScale *= 1.1f;
     }
 
     public void OnYesClicked()
     {
-        // Show success modal
         successModal.SetActive(true);
+        // Play celebration sound
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayCelebration();
+        }
+        isReturningToTitle = true;
     }
 }

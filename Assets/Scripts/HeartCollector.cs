@@ -31,6 +31,7 @@ public class HeartCollector : MonoBehaviour
         {
             heartsCollected++;
             UpdateHeartUI();
+            AudioManager.Instance.PlayHeartCollect();
             Destroy(other.gameObject);
 
             if (heartsCollected >= HEARTS_TO_WIN)
