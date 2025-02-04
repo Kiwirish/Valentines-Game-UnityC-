@@ -10,7 +10,7 @@ public class HeartCollector : MonoBehaviour
     public UIManager uiManager;               
 
     private int heartsCollected = 0;
-    private const int HEARTS_TO_WIN = 3;
+    private const int HEARTS_TO_WIN = 10;
 
     void Start()
     {
