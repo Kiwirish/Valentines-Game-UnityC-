@@ -6,24 +6,22 @@ using TMPro;
 public class HeartCollector : MonoBehaviour
 {
     [Header("UI References")]
-    public TextMeshProUGUI heartCountText;    
-    public UIManager uiManager;               
+    public TextMeshProUGUI heartCountText;    // Reference to the UI text
+    public UIManager uiManager;               // Reference to UI Manager
 
     private int heartsCollected = 0;
     private const int HEARTS_TO_WIN = 10;
 
     void Start()
     {
-        // Check if our UI references are set
+        // Verify our text component is connected
         if (heartCountText == null)
         {
-            Debug.LogError("Heart Count Text is not assigned to HeartCollector!");
-        }
-        if (uiManager == null)
-        {
-            Debug.LogError("UI Manager is not assigned to HeartCollector!");
+            Debug.LogError("HeartCountText is not assigned in HeartCollector!");
+            return;
         }
 
+        // Set initial text
         UpdateHeartUI();
     }
 
@@ -35,10 +33,9 @@ public class HeartCollector : MonoBehaviour
             UpdateHeartUI();
             Destroy(other.gameObject);
 
-            // Only show proposal if we have both the UI Manager and enough hearts
-            if (uiManager != null && heartsCollected >= HEARTS_TO_WIN)
+            if (heartsCollected >= HEARTS_TO_WIN)
             {
-                uiManager.ShowProposal();
+                UnityEngine.SceneManagement.SceneManager.LoadScene("EndScene");
             }
         }
     }
@@ -48,6 +45,11 @@ public class HeartCollector : MonoBehaviour
         if (heartCountText != null)
         {
             heartCountText.text = $"Hearts: {heartsCollected}/{HEARTS_TO_WIN}";
+            Debug.Log($"Updated heart count to: {heartsCollected}"); // Debug log
+        }
+        else
+        {
+            Debug.LogError("HeartCountText is null in HeartCollector!");
         }
     }
 }
