@@ -4,6 +4,9 @@ A basic 2D game to pop the question to your significant other!
 
 Play at: https://datedash.netlify.app/
 
+![Screenshot 2025-02-06 at 5 52 24 PM](https://github.com/user-attachments/assets/5a2d59c6-adbf-4a97-87b2-5f1cc6b152ad)
+
+
 Made with Unity Game Engine, in C#.
 
 ## How to Play
