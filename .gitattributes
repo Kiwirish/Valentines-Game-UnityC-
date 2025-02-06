@@ -1,3 +1,15 @@
-*.shader linguist-detectable=false
-*.hlsl linguist-detectable=false
-*.hlsl linguist-language=C#
+#*.shader linguist-detectable=false
+#*.hlsl linguist-detectable=false
+#*.hlsl linguist-language=C#
+
+# Unity generated files
+*.hlsl linguist-vendored=true
+*.shader linguist-vendored=true
+*.cginc linguist-vendored=true
+*.mat linguist-vendored=true
+*.meta linguist-vendored=true
+*.prefab linguist-vendored=true
+*.unity linguist-vendored=true
+*.asset linguist-vendored=true
+*.anim linguist-vendored=true
+*.controller linguist-vendored=true
